@@ -128,4 +128,68 @@ If you don't have a phone handy, you can run it in your browser.
 
 ---
 
-*Built with ❤️ using React Native & Expo*
+
+---
+
+## 📦 How to Build an APK (Android App)
+
+To share your app with friends without them needing the "Expo Go" app, you need to build a specialized Android Package (APK). We use **EAS Build** for this.
+
+### Step 1: Create an Expo Account
+If you haven't already, sign up for a free account at [expo.dev](https://expo.dev/signup).
+
+### Step 2: Install EAS CLI
+Run this command in your terminal to install the build tool:
+```bash
+npm install -g eas-cli
+```
+
+### Step 3: Login to Expo
+Log in with the account you just created:
+```bash
+eas login
+```
+
+### Step 4: Configure the Build
+Initialize the build configuration:
+```bash
+eas build:configure
+```
+*   When asked **"Which platforms would you like to configure for EAS Build?"**, choose **Android**.
+
+### Step 5: Configure for APK
+Open the newly created `eas.json` file in your project folder. logic looks like this, but you need to make sure the `preview` profile generates an `apk`.
+
+Modify your `eas.json` to look like this (specifically the `preview` section):
+
+```json
+{
+  "cli": {
+    "version": ">= 3.0.0"
+  },
+  "build": {
+    "development": {
+      "developmentClient": true,
+      "distribution": "internal"
+    },
+    "preview": {
+      "android": {
+        "buildType": "apk"
+      }
+    },
+    "production": {}
+  }
+}
+```
+
+### Step 6: Generate the APK
+Now run the build command:
+```bash
+eas build -p android --profile preview
+```
+*   This process happens in the cloud and might take **10-15 minutes**.
+*   Once finished, the terminal will give you a **direct link to download your .apk file**.
+*   You can send this file to any Android phone, install it, and use the app!
+
+---
+
